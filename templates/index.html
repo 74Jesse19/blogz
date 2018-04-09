@@ -1,0 +1,66 @@
+{% extends "base.html"  %}
+
+
+{%  block content  %}
+
+<table>
+    <tbody>
+        <tr>
+           
+            <td>
+                <label for="title">Title for new blog</label>
+            </td>
+            <td>
+              
+                    <input name="title" type="text">
+            
+            </td>
+        
+        </tr>
+
+        <tr>
+                <form method= 'POST'>
+            <td>
+                    
+                <lable for="body">Your new blog Post</lable>
+            </td>
+            <td>
+           
+                    <input name="body" type="text">
+               
+            </td>
+           
+        </tr>
+        <tr>
+            <td>
+                <input type='submit' value='Add Entry'>
+            </td>
+        </form>
+        </tr>
+    </tbody>
+</table>
+
+
+                   
+                {% for title in title %}
+                <ul>
+                        <li>
+                                <h1>{{title}}</h1>
+                
+                {% endfor %}  
+                {% for body in body %}               
+                                <p>{{body}}</p>
+                        </li>
+                </ul>
+
+                    {% endfor %}
+               
+                
+           
+            
+
+        
+    
+
+
+{% endblock %}
