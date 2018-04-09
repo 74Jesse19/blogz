@@ -7,8 +7,6 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
 
-
-
 class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -26,11 +24,15 @@ class Blog(db.Model):
 def index():
     
     if request.method == 'POST':
+        # set variables to retrieve and store user input for title and body
         blogtitle = request.form['title']   
-        new_title = Blog(blogtitle)        
         blogpost = request.form['body']
-        blog_Post = Blog(blogpost)
-        db.session.add(new_title,blog_Post)
+        
+        new_title = Blog(blogtitle,blogpost)  
+
+    
+        db.session.add(new_title)
+        db.session.commit()
     
     title = Blog.query.all()
     body = Blog.query.all()
