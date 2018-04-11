@@ -2,35 +2,20 @@
 
 {%  block content  %}
 
-            <h1>{{bTitle}}</h1>
+<form method= 'POST'>
+<div id="center"><h1>Build a Blog</h1></div>
 
+{% for word in btitle %}  
 
+<ul>
+<li>
+<h2>{{word.title}}</h2>
+<p>{{word.body}}</p><br>
 
-
-            <p>{{blogPost}}</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</li>
+</ul>
+{% endfor %}
+</form>
 
 
 

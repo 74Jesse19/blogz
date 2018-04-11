@@ -8,14 +8,16 @@
         <tr>
            
             <td>
-                <label for="title">Title for new blog</label>
+                <label for="btitle">Title for new blog</label>
             </td>
+        </tr>
+        <tr>
             <td>
               
-                    <input name="title" type="text">
+                    <input name="btitle" type="text">
             
             </td>
-           
+        </tr>   
 
         <tr>
                
@@ -23,9 +25,13 @@
                     
                 <lable for="body">Your new blog Post</lable>
             </td>
+        </tr>
+        <tr>
             <td>
            
-                    <input name="body" type="text">
+                    <textarea name="body"> 
+
+                    </textarea>
                
             </td>
           
@@ -42,20 +48,17 @@
 </form>
 
 
-                   
-                {% for title in title %}
+                                {% for word in btitle %}  
+              
                 <ul>
                         <li>
-                                <h1>{{title}}</h1>
-                
-                {% endfor %}  
-                {% for body in body %}               
-                                <p>{{body}}</p>
+                                <h1>{{word.title}}</h1>
+                                <p>{{word.body}}</p><br>
+                                
                         </li>
                 </ul>
-
-                    {% endfor %}
-               
+                {% endfor %}
+                               
                 
            
             
