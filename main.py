@@ -21,17 +21,17 @@ class Blog(db.Model):
         self.title = title
         self.body= body
 
-@app.route('/blogPage', methods=['POST','GET'])  
+@app.route('/blog', methods=['POST','GET'])  
 def blogPage():
     btitle = Blog.query.all()
     body = Blog.query.all()
-    return render_template('blogPage.html',title= " ADD BLOG ENTRY", btitle=btitle, body=body)
+    return render_template('blog.html',title= " ADD BLOG ENTRY", btitle=btitle, body=body)
   
 
 
 
 @app.route('/', methods=['POST','GET'])
-def index():
+def newpost():
     btitle=""
     body=""
     
@@ -47,10 +47,10 @@ def index():
    
         btitle = Blog.query.all()
         body = Blog.query.all()
-        return redirect('/blogPage')
+        return redirect('/blog')
 
     else:
-        return render_template('index.html')
+        return render_template('newpost.html')
 
     #else:
         #btitle = Blog.query.all()
