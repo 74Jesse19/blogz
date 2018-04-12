@@ -30,7 +30,7 @@ def blogPage():
 
 
 
-@app.route('/', methods=['POST','GET'])
+@app.route('/newpost', methods=['POST','GET'])
 def newpost():
     btitle=""
     body=""
@@ -52,6 +52,30 @@ def newpost():
     else:
         return render_template('newpost.html')
 
+ 
+@app.route('/', methods=['POST','GET'])
+def index():
+    btitle=""
+    body=""
+    
+
+    if request.method == 'POST':
+        # set variables to retrieve and store user input for title and body
+        blogtitle = request.form['btitle']   
+        blogpost = request.form['body']
+        
+        new_title = Blog(blogtitle,blogpost)  #makes new object for title and body 
+        db.session.add(new_title) #adds to database
+        db.session.commit()# dont forget this you need it to commit add
+   
+        btitle = Blog.query.all()
+        body = Blog.query.all()
+        return redirect('/blog')
+
+    else:
+        return render_template('newpost.html')
+ 
+ 
     #else:
         #btitle = Blog.query.all()
         #body = Blog.query.all()
