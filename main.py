@@ -32,59 +32,44 @@ def blogPage():
 
 @app.route('/newpost', methods=['POST','GET'])
 def newpost():
-    btitle=""
-    body=""
-    
-
+    titleError=""
+    bodyError=""
+    print("******in function")
     if request.method == 'POST':
         # set variables to retrieve and store user input for title and body
-        blogtitle = request.form['btitle']   
-        blogpost = request.form['body']
-        
+        blogtitle = request.form['blogtitle']   
+        blogpost = request.form['blogpost']
         new_title = Blog(blogtitle,blogpost)  #makes new object for title and body 
-        db.session.add(new_title) #adds to database
-        db.session.commit()# dont forget this you need it to commit add
-   
-        btitle = Blog.query.all()
-        body = Blog.query.all()
-        return redirect('/blog')
+        #data validation
+        if not blogtitle:
+            titleError = "Please fill in the title"
+        
+        if not blogpost:
+            bodyError = "Please fill in the body" # look at this part it is whats broke
 
-    else:
-        return render_template('newpost.html')
+        if not titleError and not bodyError:
+            
+            db.session.add(new_title) #adds to database
+            db.session.commit()# dont forget this you need it to commit add
+            id= str(new_title.id)
+            btitle = Blog.query.all()
+            body = Blog.query.all()
+            return redirect('/blog')
+        
+        
+
+        else:
+            print('*********errors here', titleError, bodyError)
+            return render_template('newpost.html',blogtitle=blogtitle, blogpost=blogpost, titleError=titleError, bodyError=bodyError)
+
+    return render_template('newpost.html')
 
  
 @app.route('/', methods=['POST','GET'])
 def index():
-    btitle=""
-    body=""
-    
 
-    if request.method == 'POST':
-        # set variables to retrieve and store user input for title and body
-        blogtitle = request.form['btitle']   
-        blogpost = request.form['body']
-        
-        new_title = Blog(blogtitle,blogpost)  #makes new object for title and body 
-        db.session.add(new_title) #adds to database
-        db.session.commit()# dont forget this you need it to commit add
-   
-        btitle = Blog.query.all()
-        body = Blog.query.all()
-        return redirect('/blog')
-
-    else:
-        return render_template('newpost.html')
+    return render_template('newpost.html')
  
- 
-    #else:
-        #btitle = Blog.query.all()
-        #body = Blog.query.all()
-       
-
-        #return render_template('index.html',title= " ADD BLOG ENTRY", btitle=btitle, body=body)
-
-
-
 
 
 if __name__ == '__main__': #if you want to reference this from somewhere else this lets you import 
