@@ -45,26 +45,31 @@ def newpost():
             titleError = "Please fill in the title"
         
         if not blogpost:
-            bodyError = "Please fill in the body" # look at this part it is whats broke
+            bodyError = "Please fill in the body" 
 
         if not titleError and not bodyError:
             
             db.session.add(new_title) #adds to database
             db.session.commit()# dont forget this you need it to commit add
-            id= str(new_title.id)
-            btitle = Blog.query.all()
-            body = Blog.query.all()
-            return redirect('/blog')
-        
-        
+            id = str(new_title.id)
+
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + id)
+
+            return redirect('/displayblog')
 
         else:
-            print('*********errors here', titleError, bodyError)
             return render_template('newpost.html',blogtitle=blogtitle, blogpost=blogpost, titleError=titleError, bodyError=bodyError)
 
     return render_template('newpost.html')
 
- 
+   
+
+@app.route('/displayblog')
+def displayblog():
+    display = request.args.get('id', type=str)
+    #print ('*******************************************' + display)
+    return render_template('displayblog.html', display=display)
+
 @app.route('/', methods=['POST','GET'])
 def index():
 

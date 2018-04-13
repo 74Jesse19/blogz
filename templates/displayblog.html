@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{%  block content  %}
+
+<form action='/displayblog' method= 'GET'>
+<div id="center"><h1>Build a Blog</h1></div>
+
+
+<ul>
+<li>
+<h2>{{display.title}}</h2>
+<p>{{display.body}}</p><br>
+
+</li>
+</ul>
+
+</form>
+
+
+
+
+{% endblock %}

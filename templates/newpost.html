@@ -17,9 +17,9 @@
                     <input name="blogtitle" type="text" value='{{blogtitle}}'>
             
             </td>
-           
+         <tr>  
                 <td class='error'>{{titleError}}</td>
-          
+        </tr> 
         </tr>   
 
         <tr>
@@ -32,12 +32,13 @@
         <tr>
             <td>
            
-                    <textarea name="blogpost" value='{{blogpost}}'> 
-
-                    </textarea>
-               
-            </td>
-            <p class='error'>{{bodyError}}</p>
+           
+                    <input type ="text" value='{{blogpost}}' name='blogpost' class='resize'/> 
+                          
+            </td> 
+        </tr> 
+        <tr>
+            <td class='error'>{{bodyError}}</td>
         </tr>
         <tr>
            
