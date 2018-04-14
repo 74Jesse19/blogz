@@ -51,11 +51,13 @@ def newpost():
             
             db.session.add(new_title) #adds to database
             db.session.commit()# dont forget this you need it to commit add
-            id = str(new_title.id)
+            id = (new_title.id)
 
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + id)
+            blogtitle = request.args.get('blogtitle')
+            blogpost = request.args.get('id.body')
+            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + str(blogtitle)) #this is working in the terminal
 
-            return redirect('/displayblog')
+            return render_template('/displayblog.html',blogtitle=blogtitle, blogpost=blogpost)
 
         else:
             return render_template('newpost.html',blogtitle=blogtitle, blogpost=blogpost, titleError=titleError, bodyError=bodyError)
@@ -66,9 +68,12 @@ def newpost():
 
 @app.route('/displayblog')
 def displayblog():
-    display = request.args.get('id', type=str)
-    #print ('*******************************************' + display)
-    return render_template('displayblog.html', display=display)
+    #blogid = request.args.get('Blog.id')
+    #blogtitle = request.args.get('blogtitle')
+    #blogpost = request.args.get('blogpost')
+    #print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' + str(id))
+    #print ('*******************************************' + str(blogid))
+    return render_template('displayblog.html', blogtitle=blogtitle,  blogpost=blogpost, blogid=blogid)
 
 @app.route('/', methods=['POST','GET'])
 def index():
