@@ -21,18 +21,22 @@ class Blog(db.Model):
         self.title = title
         self.body= body
 
+
+
+
 @app.route('/blog', methods=['POST','GET'])  
 def blogPage():
-    id = request.args.get('id')
-    if id == None:
+    id = request.args.get('id') #this grabs the id from the query parameter in the URL after the ? --> /blog?id=
+    if id == None: #if there is no id then it renders the main blog page
         btitle = Blog.query.all()
         return render_template('blog.html', btitle=btitle)
     else: 
-        #blog_id = int(request.form['word-id'])
-
-        blogtitle = Blog.query.get('word-title')
-        blogpost = request.args.get('word.body')
+        get_blog = Blog.query.get(id) #this creates a query object called get_blog to use to talk to database
+        blogtitle = get_blog.title
+        blogpost = get_blog.body
         return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
+       
+
 
  
   
@@ -62,11 +66,6 @@ def newpost():
             db.session.commit()# dont forget this you need it to commit add
             id = str(new_title.id)
             return redirect('/blog?id={0}'.format(id))
-
-            #else:  ** this works but only in the newpost handler **
-                #blogtitle = request.args.get(new_title.id, new_title.title)
-                #blogpost = request.args.get(new_title.id, new_title.body)
-                #return render_template('/singleblog.html',blogtitle=blogtitle, blogpost=blogpost)
 
         else:
             return render_template('newpost.html',blogtitle=blogtitle, blogpost=blogpost, titleError=titleError, bodyError=bodyError)
