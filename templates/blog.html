@@ -2,14 +2,19 @@
 
 {%  block content  %}
 
-<form action='/blog' method= 'POST'>
+
+
 <div id="center"><h1>Build a Blog</h1></div>
 
 {% for word in btitle %}  
 
 <ul>
 <li>
-<a href="/displayblog"><h2>{{word.title}}</h2></a>
+<form action='/blog' method= 'POST'>
+<a href="/blog?id={{word.id}}"><h2>{{word.title}}</h2></a>
+<input type="hidden" name="word-id" value="{{word.id}}"/>
+<input type="hidden" name="word-title" value="{{word.title}}"/>
+<input type="hidden" name="word-body" value="{{word.body}}"/>
 <p>{{word.body}}</p><br>
 
 </li>
@@ -17,6 +22,7 @@
 {% endfor %}
 </form>
 
+ 
 
 
 

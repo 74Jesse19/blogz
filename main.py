@@ -23,24 +23,31 @@ class Blog(db.Model):
 
 @app.route('/blog', methods=['POST','GET'])  
 def blogPage():
-    btitle = Blog.query.all()
-    body = Blog.query.all()
-    return render_template('blog.html',title= " ADD BLOG ENTRY", btitle=btitle, body=body)
+    id = request.args.get('id')
+    if id == None:
+        btitle = Blog.query.all()
+        return render_template('blog.html', btitle=btitle)
+    else: 
+        #blog_id = int(request.form['word-id'])
+
+        blogtitle = Blog.query.get('word-title')
+        blogpost = request.args.get('word.body')
+        return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
+
+ 
   
-
-
-
 @app.route('/newpost', methods=['POST','GET'])
 def newpost():
     titleError=""
     bodyError=""
-    print("******in function")
+    
     if request.method == 'POST':
         # set variables to retrieve and store user input for title and body
-        blogtitle = request.form['blogtitle']   
+        blogtitle = request.form['blogtitle']  
         blogpost = request.form['blogpost']
         new_title = Blog(blogtitle,blogpost)  #makes new object for title and body 
-        #data validation
+
+        #data validation 
         if not blogtitle:
             titleError = "Please fill in the title"
         
@@ -49,31 +56,23 @@ def newpost():
 
         if not titleError and not bodyError:
             
+            
+        
             db.session.add(new_title) #adds to database
             db.session.commit()# dont forget this you need it to commit add
-            id = (new_title.id)
+            id = str(new_title.id)
+            return redirect('/blog?id={0}'.format(id))
 
-            blogtitle = request.args.get('blogtitle')
-            blogpost = request.args.get('id.body')
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + str(blogtitle)) #this is working in the terminal
-
-            return render_template('/displayblog.html',blogtitle=blogtitle, blogpost=blogpost)
+            #else:  ** this works but only in the newpost handler **
+                #blogtitle = request.args.get(new_title.id, new_title.title)
+                #blogpost = request.args.get(new_title.id, new_title.body)
+                #return render_template('/singleblog.html',blogtitle=blogtitle, blogpost=blogpost)
 
         else:
             return render_template('newpost.html',blogtitle=blogtitle, blogpost=blogpost, titleError=titleError, bodyError=bodyError)
 
     return render_template('newpost.html')
-
-   
-
-@app.route('/displayblog')
-def displayblog():
-    #blogid = request.args.get('Blog.id')
-    #blogtitle = request.args.get('blogtitle')
-    #blogpost = request.args.get('blogpost')
-    #print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' + str(id))
-    #print ('*******************************************' + str(blogid))
-    return render_template('displayblog.html', blogtitle=blogtitle,  blogpost=blogpost, blogid=blogid)
+    
 
 @app.route('/', methods=['POST','GET'])
 def index():
