@@ -102,20 +102,27 @@ def logout():
 @app.route('/blog', methods=['POST','GET'])  
 def blogPage():
     id = request.args.get('id') #this grabs the id from the query parameter in the URL after the ? --> /blog?id=
-    if id == None: #if there is no id then it renders the main blog page
-        btitle = Blog.query.all()
-        return render_template('blog.html', btitle=btitle)
-    if userID == None: 
-        get_blog = Blog.query.get(id) #this creates a query object called get_blog to use to talk to database
-        blogtitle = get_blog.title
-        blogpost = get_blog.body
-        return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
+    user = request.args.get('user')
+    if id == id:    
+        
+        if id == None: #if there is no id then it renders the main blog page
+            btitle = Blog.query.all()
+            return render_template('blog.html', btitle=btitle)
+   
+        else:
+            get_blog = Blog.query.get(id) #this creates a query object called get_blog to use to talk to database
+            blogtitle = get_blog.title
+            blogpost = get_blog.body
+            return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
+    if user == user:
+            get_userBlog = Blog.query.get(owner_id)
+            blogtitle= get_userBlog.title
+            blogpost = get_userBlog.body
+            return render_template('singleUser.html',blogtitle=blogtitle,blogpost=blogpost)
     else:
-        get_userBlog = Blog.query.get(userID)
-        blogtitle= get_userBlog.title
-        blogpost = get_userBlog.body
-        return render_template('singleUser.html',blogtitle=blogtitle,blogpost=blogpost)
-         
+        return redirect('/')
+
+        
         
        
 
@@ -163,10 +170,8 @@ def index():
         userList = User.query.all()
         return render_template('index.html', userList=userList)
     else:
-        get_userBlog = Blog.query.get(id)
-        blogtitle= get_userBlog.title
-        blogpost = get_userBlog.body
-        return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
+       
+        return redirect('/')
          
 
   
