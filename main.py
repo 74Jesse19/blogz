@@ -36,7 +36,7 @@ class User(db.Model):
 
 @app.before_request 
 def require_login():
-    allowed_routes = ['login','signup'] #list of routes users dont need to be logged ion to see
+    allowed_routes = ['login','signup','blogPage','index'] #list of routes users dont need to be logged ion to see
     if request.endpoint not in allowed_routes and 'username' not in session: 
         return redirect('/login') 
 
@@ -105,11 +105,18 @@ def blogPage():
     if id == None: #if there is no id then it renders the main blog page
         btitle = Blog.query.all()
         return render_template('blog.html', btitle=btitle)
-    else: 
+    if userID == None: 
         get_blog = Blog.query.get(id) #this creates a query object called get_blog to use to talk to database
         blogtitle = get_blog.title
         blogpost = get_blog.body
         return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
+    else:
+        get_userBlog = Blog.query.get(userID)
+        blogtitle= get_userBlog.title
+        blogpost = get_userBlog.body
+        return render_template('singleUser.html',blogtitle=blogtitle,blogpost=blogpost)
+         
+        
        
 
 
@@ -151,8 +158,18 @@ def newpost():
 
 @app.route('/', methods=['POST','GET'])
 def index():
+    id = request.args.get('id')
+    if id == None:
+        userList = User.query.all()
+        return render_template('index.html', userList=userList)
+    else:
+        get_userBlog = Blog.query.get(id)
+        blogtitle= get_userBlog.title
+        blogpost = get_userBlog.body
+        return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
+         
 
-    return render_template('newpost.html')
+  
  
 
 
