@@ -4,20 +4,25 @@
 
 
 
-<div id="center"><h1>Build a Blog</h1></div>
+<div id="center"><h1>Blogz</h1></div>
 
 {% for word in btitle %}  
 
 <ul>
 <li>
-<form action='/blog' method= 'POST'>
+<form action='/blog'>
 <a href="/blog?id={{word.id}}"><h2>{{word.title}}</h2></a>
+<input type="hidden" name="user-id" value="{{word.owner_id}}"/>
 
-<p>{{word.body}}</p><br>
+<h4>{{word.body}}</h4>
+
+<h6>Written by: <a href="/blog?id={{word.id}}">{{word.owner.username}}</a></h6>
 
 </li>
 </ul>
+
 {% endfor %}
+
 </form>
 
  

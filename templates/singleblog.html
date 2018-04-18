@@ -4,17 +4,19 @@
 
 
 <form action='/blog' method= 'GET'>
-    <div id="center"><h1>{{blogtitle}}</h1></div>
+    <div id="center"><h1>{{blogtitle}}</h1>
     
     
     <ul>
     <li>
     
-    <p>{{blogpost}}</p>
-    
+    <h4>{{blogpost}}</h4>
+
+    <h6>Written by:<a href='/blog?id=blogID'>{{bloguser}} </a> </h6>
+
     </li>
     </ul>
-    
+</div>   
     </form>
     
 

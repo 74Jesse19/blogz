@@ -2,19 +2,27 @@
 
 {%  block content  %}
 
+<div id="center"><h1>Blogz!!</h1></div>
 
-<form action='/blog' method= 'GET'>
-    <div id="center"><h1>{{blogtitle}}</h1></div>
+
+{% for item in single_user%}
+{% for name in s_uID %}
     
-    <h1> this works!</h1>
+    
+    
     <ul>
     <li>
+    <form action='/blog' method= 'POST'>
+    <a href="/blog?id={{item.id}}"><h2>{{item.title}}</h2></a>
+          
+    <p>{{item.body}}</p>
+   
     
-    <p>{{blogpost}}</p>
-    
+    <h6>Written by: <a href="/blog?id={{item.id}}">{{name.username}}</h6></a>   
     </li>
     </ul>
-    
+   {%endfor%}
+   {%endfor%}
     </form>
     
 

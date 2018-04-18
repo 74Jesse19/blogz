@@ -102,25 +102,33 @@ def logout():
 @app.route('/blog', methods=['POST','GET'])  
 def blogPage():
     id = request.args.get('id') #this grabs the id from the query parameter in the URL after the ? --> /blog?id=
-    user = request.args.get('user')
-    if id == id:    
-        
-        if id == None: #if there is no id then it renders the main blog page
-            btitle = Blog.query.all()
-            return render_template('blog.html', btitle=btitle)
+    owner = request.args.get('user')
+
+    
+    
+    if id == None and owner == None:    
+
+        btitle = Blog.query.all()
+
+        return render_template('blog.html', btitle=btitle)
    
-        else:
-            get_blog = Blog.query.get(id) #this creates a query object called get_blog to use to talk to database
-            blogtitle = get_blog.title
-            blogpost = get_blog.body
-            return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost)
-    if user == user:
-            get_userBlog = Blog.query.get(owner_id)
-            blogtitle= get_userBlog.title
-            blogpost = get_userBlog.body
-            return render_template('singleUser.html',blogtitle=blogtitle,blogpost=blogpost)
-    else:
-        return redirect('/')
+       
+    if id:
+        get_blog = Blog.query.get(id) #this creates a query object called get_blog to use to talk to database
+        blogtitle = get_blog.title
+        blogpost = get_blog.body
+        bloguser = get_blog.owner.username
+        blogID = get_blog.id
+        return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost,bloguser=bloguser,blogID=blogID)
+            
+    if owner:
+        
+        single_user = Blog.query.filter_by(owner_id=owner).all()
+        s_uID = User.query.filter_by(id=owner).all()
+
+        return render_template('singleUser.html', single_user=single_user,s_uID=s_uID)
+    #else:
+        #return redirect('/')
 
         
         
