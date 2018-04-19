@@ -1,13 +1,54 @@
 <!doctype html>
     <html>
         <head>
-            <title>{{title}}</title>
+            <title id ="title">{{title}}</title>
             <style>
                 body{
-                    background-color:wheat
+                
+                    margin:0;
+                    padding: 0;
+                    font-family: 'Arial', 'serif';
                     
 
                 }
+                .userlist{
+                    text-decoration: none;
+                    color:#000000;
+                }
+                .nav{
+                    background-color: #595959;
+                    color: #ffffff;
+                    list-style: none;
+                    text-align: right;
+                    padding: 20px 0 20px 0;
+                    
+                }
+
+                .nav > li{
+                    display: inline-block;
+                    padding: 0 25px 0 25px;
+                    font-size: 12px;
+
+                }
+                .nav > li > a{
+                    text-decoration: none;
+                    color: #ffffff;
+                }
+                .nav > li>a:hover{
+                    color:#c1c1c1;
+                }
+                .logo{
+                    color: #000000;
+                    float: left;
+                    padding: 5px;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                .logo > a{
+                    text-decoration: none;
+                    color:#000000;
+                }
+
                 .error{
                     color: red;
                 }
@@ -24,32 +65,31 @@
                 #center {
                     text-align: center;
                 }
-                .inline{ 
-                    display: inline-block;
-                    margin-right: 5px;
-
-                }
+              
+               
             </style>
     
         </head>
         <body>
-            <div>
-                <table>
-                    <tbody>
-                        <tr>
-                    
-                    <td><a href='/blog'class="inline">Main Blog Page</a></td>
-                    <td><a href='/newpost' class="inline">Add a Blog Entry</a></td>
-                    <td><a href='/logout'class="inline">Log Out</a></td>
-                    <td><a href='/' class="inline">Home</a></td>
+            
+                <ul class="nav"> 
 
+                    <div class="logo">
+                            <a href="/">BLOGZ</a>
+                    </div>
+                    
+                    <li><a href='/'>Home</a></li>
+                    <li><a href='/blog'>Main Blog Page</a></li>
+                    <li><a href='/newpost'>Add a Blog Entry</a></li>
+                    <li><a href='/login'>Log In</a></li>
+                    <li><a href='/logout'>Log Out</a></li>
+                  
+                </ul>  
                    
                         
                    
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                
+           
 
             {% with messages = get_flashed_messages(with_categories=True) %}
                 <ul>

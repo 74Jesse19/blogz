@@ -4,14 +4,14 @@
 
 
 
-<div id="center"><h1>Blogz</h1></div>
+
 
 {% for user in userList %}  
 
 <ul>
 <li>
 <form action='/'>
-<a href="/blog?user={{user.username}}"><h2>{{user.username}}</h2></a>
+<a class = "userlist" href="/blog?user={{user.username}}"><h4>{{user.username}}</h4></a>
 
 
 

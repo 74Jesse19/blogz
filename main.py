@@ -63,7 +63,7 @@ def signup():
         password = request.form['password']
         verify = request.form['verify']
 
-        #TODO - validate
+        #validate 
 
         existing_user = User.query.filter_by(username=username).first()
         if not existing_user:
@@ -88,7 +88,7 @@ def signup():
             return redirect('/newpost')
 
         else:
-            #TODO - user better response messaging
+           
             flash('Sorry that username is taken', 'error')
             return render_template('signup.html')
 
@@ -124,11 +124,11 @@ def blogPage():
         return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost,bloguser=bloguser,blogID=blogID)
             
     if not id:
-        person = User.query.filter_by(username=owner).first()
-        userID = person.id 
-        user_name = person.username
-        print(person, userID, user_name, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-        single_user = Blog.query.filter_by(owner_id=userID).all()
+        person = User.query.filter_by(username=owner).first() #create object to query ddatabase
+        userID = person.id #grab id integer
+        user_name = person.username #grabbing username
+        
+        single_user = Blog.query.filter_by(owner_id=userID).all() #this is querying every thing on the Blog table by the user's id(foreign key)
         s_uID = User.query.filter_by(username=user_name).all()
 
         return render_template('singleUser.html', single_user=single_user,s_uID=s_uID)
@@ -137,11 +137,7 @@ def blogPage():
         return redirect('/')
 
         
-        
-       
 
-
- 
   
 @app.route('/newpost', methods=['POST','GET'])
 def newpost():
