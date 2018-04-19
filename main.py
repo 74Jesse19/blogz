@@ -105,6 +105,8 @@ def blogPage():
     owner = request.args.get('user')
 
     
+
+    
     
     if id == None and owner == None:    
 
@@ -121,14 +123,18 @@ def blogPage():
         blogID = get_blog.id
         return render_template('singleblog.html',blogtitle=blogtitle,blogpost=blogpost,bloguser=bloguser,blogID=blogID)
             
-    if owner:
-        
-        single_user = Blog.query.filter_by(owner_id=owner).all()
-        s_uID = User.query.filter_by(id=owner).all()
+    if not id:
+        person = User.query.filter_by(username=owner).first()
+        userID = person.id 
+        user_name = person.username
+        print(person, userID, user_name, '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        single_user = Blog.query.filter_by(owner_id=userID).all()
+        s_uID = User.query.filter_by(username=user_name).all()
 
         return render_template('singleUser.html', single_user=single_user,s_uID=s_uID)
-    #else:
-        #return redirect('/')
+
+    else:
+        return redirect('/')
 
         
         

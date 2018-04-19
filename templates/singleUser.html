@@ -12,13 +12,13 @@
     
     <ul>
     <li>
-    <form action='/blog' method= 'POST'>
+    <form action='/blog'>
     <a href="/blog?id={{item.id}}"><h2>{{item.title}}</h2></a>
           
     <p>{{item.body}}</p>
    
     
-    <h6>Written by: <a href="/blog?id={{item.id}}">{{name.username}}</h6></a>   
+    <h6>Written by: <a href="/blog?user={{name.username}}">{{name.username}}</h6></a>   
     </li>
     </ul>
    {%endfor%}
