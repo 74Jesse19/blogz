@@ -19,7 +19,7 @@ class Blog(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
    
 
-    def __init__(self, title, body, owner): #this is a constructor that initializes
+    def __init__(self, title, body, owner): #this is a constructor that initializes Blog
         self.title = title
         self.body = body
         self.owner= owner
@@ -155,7 +155,7 @@ def newpost():
         if not blogtitle:
             titleError = "Please fill in the title"
         
-        if not blogpost:
+        if not blogpost or blogpost.strip() == '':
             bodyError = "Please fill in the body" 
 
         if not titleError and not bodyError:
