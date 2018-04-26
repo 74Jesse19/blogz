@@ -152,7 +152,7 @@ def newpost():
         new_title = Blog(blogtitle,blogpost,owner)  #makes new object for title and body 
 
         #data validation 
-        if not blogtitle:
+        if not blogtitle or blogtitle.strip() == '':
             titleError = "Please fill in the title"
         
         if not blogpost or blogpost.strip() == '':
